@@ -1,4 +1,4 @@
-import { RsgItem } from './RsgItem';
+import { RsgItem } from './types/RsgItem';
 
 export const rsgList: RsgItem[] = [
   {

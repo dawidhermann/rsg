@@ -11,9 +11,9 @@ import {
   Put,
 } from '@nestjs/common';
 import { RsgService } from './rsg.service';
-import { RsgItem } from './RsgItem';
-import { CreateRsgItemDto } from './CreateRsgItemDto';
-import { UpdateRsgItemDto } from './UpdateRsgItemDto';
+import { RsgItem } from './types/RsgItem';
+import { CreateRsgItemDto } from './dto/CreateRsgItemDto';
+import { UpdateRsgItemDto } from './dto/UpdateRsgItemDto';
 
 @Controller('rsg')
 export class RsgController {

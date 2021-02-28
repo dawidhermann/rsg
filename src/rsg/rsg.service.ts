@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { RsgItem } from './RsgItem';
+import { RsgItem } from './types/RsgItem';
 import { rsgList } from './rsgList';
-import { CreateRsgItemDto } from './CreateRsgItemDto';
-import { UpdateRsgItemDto } from './UpdateRsgItemDto';
+import { CreateRsgItemDto } from './dto/CreateRsgItemDto';
+import { UpdateRsgItemDto } from './dto/UpdateRsgItemDto';
 
 @Injectable()
 export class RsgService {
