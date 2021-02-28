@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { RsgItem } from './RsgItem';
 import { rsgList } from './rsgList';
 import { CreateRsgItemDto } from './CreateRsgItemDto';
+import { UpdateRsgItemDto } from './UpdateRsgItemDto';
 
 @Injectable()
 export class RsgService {
@@ -20,5 +21,28 @@ export class RsgService {
     const newId = lastId + 1;
     this.#rsgItems.push({ id: newId, content: item.content });
     return newId;
+  }
+
+  updateRngItem(id: number, updateRsgItemDto: UpdateRsgItemDto): boolean {
+    const item = this.findRsgItem(id);
+    if (item === undefined) {
+      return false;
+    }
+    this.#rsgItems = this.#rsgItems.reduce((acc, item) => {
+      if (item.id === id) {
+        return [...acc, { id, ...updateRsgItemDto }];
+      }
+      return [...acc, item];
+    }, [] as RsgItem[]);
+    return true;
+  }
+
+  deleteItem(id: number): boolean {
+    const hasItem = this.findRsgItem(id);
+    if (hasItem === undefined) {
+      return false;
+    }
+    this.#rsgItems = this.#rsgItems.filter((item) => item.id !== id);
+    return true;
   }
 }
