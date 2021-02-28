@@ -7,6 +7,7 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
@@ -25,8 +26,8 @@ export class RsgController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    const rsgItem = this.rsgService.findRsgItem(Number(id));
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    const rsgItem = this.rsgService.findRsgItem(id);
     if (rsgItem === undefined) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
@@ -40,10 +41,10 @@ export class RsgController {
 
   @Put(':id')
   updateItem(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateRsgItemDto: UpdateRsgItemDto,
   ) {
-    const result = this.rsgService.updateRngItem(Number(id), updateRsgItemDto);
+    const result = this.rsgService.updateRngItem(id, updateRsgItemDto);
     if (!result) {
       throw new HttpException('No Content', HttpStatus.NO_CONTENT);
     }
@@ -51,8 +52,8 @@ export class RsgController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  deleteItem(@Param('id') id: string) {
-    const result = this.rsgService.deleteItem(Number(id));
+  deleteItem(@Param('id', ParseIntPipe) id: number) {
+    const result = this.rsgService.deleteItem(id);
     if (!result) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
