@@ -1,12 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { RsgItem } from './types/RsgItem';
 import { rsgList } from './rsgList';
 import { CreateRsgItemDto } from './dto/CreateRsgItemDto';
 import { UpdateRsgItemDto } from './dto/UpdateRsgItemDto';
+import { RandomNumberGenerator } from './types/RandomNumberGenerator';
 
 @Injectable()
 export class RsgService {
   #rsgItems: RsgItem[] = [...rsgList];
+  #rng: RandomNumberGenerator;
+
+  constructor(@Inject('RNG') rng: RandomNumberGenerator) {
+    this.#rng = rng;
+  }
 
   getAll(): RsgItem[] {
     return this.#rsgItems;
@@ -44,5 +50,10 @@ export class RsgService {
     }
     this.#rsgItems = this.#rsgItems.filter((item) => item.id !== id);
     return true;
+  }
+
+  getRandomItem(): RsgItem {
+    const index = this.#rng.generate(0, this.#rsgItems.length - 1);
+    return this.#rsgItems[index];
   }
 }

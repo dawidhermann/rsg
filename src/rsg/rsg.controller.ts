@@ -25,6 +25,11 @@ export class RsgController {
     return this.rsgService.getAll();
   }
 
+  @Get('/random')
+  getRandom(): RsgItem {
+    return this.rsgService.getRandomItem();
+  }
+
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     const rsgItem = this.rsgService.findRsgItem(id);
